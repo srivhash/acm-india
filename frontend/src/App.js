@@ -49,7 +49,7 @@ const App = () => {
           Login
         </Button>
         
-        <Button
+        {/* <Button
           colorScheme="teal"
           variant="ghost"
           onClick={() => navigate('/form')}
@@ -57,7 +57,7 @@ const App = () => {
           mx={2}
         >
           Form
-        </Button>
+        </Button> */}
       </Flex>
     </Box>
   );
