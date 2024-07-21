@@ -27,7 +27,6 @@ function LoginForm() {
     });
     const [isLoading, setIsLoading] = useState(false);
     const [error, setError] = useState('');
-    const toast = useToast();
     const router = useRouter();
 
     function handleChange(event) {

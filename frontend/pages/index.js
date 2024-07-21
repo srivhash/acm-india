@@ -2,11 +2,12 @@
 import Head from 'next/head';
 import Link from 'next/link'; // Import Link
 import styles from '../styles/Home.module.css';
-import { ChakraProvider } from "@chakra-ui/react";
+// import { ChakraProvider } from "@chakra-ui/react";
 
 export default function Home() {
   return (
-    <ChakraProvider>
+    <div>
+    {/* <ChakraProvider> */}
     <div>
       ACM India Dashboard
       <nav>
@@ -17,6 +18,7 @@ export default function Home() {
         <Link href="/form">Form</Link>
       </nav>
     </div>
-    </ChakraProvider>
+    {/* </ChakraProvider> */}
+    </div>
   );
 }

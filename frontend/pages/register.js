@@ -19,6 +19,7 @@ import {
 import { MdPerson, MdEmail, MdLock } from 'react-icons/md';
 import NextLink from 'next/link';
 import catchErrors from '../utils/catchErrors';
+import { useRouter } from 'next/router';
 
 const INITIAL_USER = {
     firstname: "",
@@ -32,7 +33,7 @@ function Signup() {
     const [disabled, setDisabled] = useState(true);
     const [isLoading, setIsLoading] = useState(false);
     const [error, setError] = useState('');
-    const toast = useToast();
+    const router = useRouter();
 
     useEffect(() => {
         const isUser = Object.values(user).every(el => Boolean(el));
