@@ -3,11 +3,8 @@ import { Box, FormControl, FormLabel, Input, Textarea, Select, Button, VStack } 
 import axios from 'axios';
 const PhDClinicForm = () => {
   const [formData, setFormData] = useState({
-    email: '',
-    name: '',
     affiliation: '',
     researchProblem: '',
-    feedback: '',
     mentor: '',
     attendedBefore: '',
   });
@@ -45,23 +42,28 @@ const PhDClinicForm = () => {
     e.preventDefault();
     console.log('Form data:', formData);
 
-    // const response = await fetch('/api/submitForm', {
-    //   method: 'POST',
-    //   headers: {
-    //     'Content-Type': 'application/json',
-    //   },
-    //   body: JSON.stringify(formData),
-    // });
+    try {
+        const token = localStorage.getItem('token'); // Assuming the token is stored in localStorage
+        const response = await axios.post('http://localhost:5001/api/pairings/pairing-request', formData, {
+            headers: {
+                'Content-Type': 'application/json',
+                'Authorization': `Bearer ${token}`
+            }
+        });
 
-    // const result = await response.json();
-    // console.log('Result:', result);
+        console.log('Result:', response.data);
 
-    // if (response.ok) {
-    //   alert('Form submitted successfully');
-    // } else {
-    //   alert('Failed to submit form');
-    // }
-  };
+        if (response.status === 201) {
+            alert('Form submitted successfully');
+            // Clear the form or redirect as needed
+        } else {
+            alert('Failed to submit form');
+        }
+    } catch (error) {
+        console.error('Error submitting form:', error);
+        alert('Failed to submit form');
+    }
+};
 
   return (
     <Box maxW="600px" mx="auto" mt={10} p={6} borderWidth={1} borderRadius="lg" boxShadow="lg">

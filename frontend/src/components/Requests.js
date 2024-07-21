@@ -25,7 +25,7 @@ function AdminDashboard() {
         const fetchRequests = async () => {
             try {
                 setIsLoading(true);
-                const response = await axios.get('http://localhost:5001/api/requests', {
+                const response = await axios.get('http://localhost:5001/api/pairings/pending-request', {
                     headers: { 'Authorization': `Bearer ${localStorage.getItem('token')}` }
                 });
                 setRequests(response.data);
@@ -39,10 +39,10 @@ function AdminDashboard() {
         fetchRequests();
     }, []);
 
-    async function handleApprove(requestId) {
+    const handleApprove = async (requestId) => {
         try {
             setIsLoading(true);
-            await axios.put(`http://localhost:5001/requests/${requestId}/approve`, null, {
+            await axios.put(`http://localhost:5001/api/pairings/approve-request/${requestId}`, null, {
                 headers: { 'Authorization': `Bearer ${localStorage.getItem('token')}` }
             });
             toast({
@@ -52,7 +52,7 @@ function AdminDashboard() {
                 duration: 5000,
                 isClosable: true,
             });
-            setRequests(requests.filter(request => request.id !== requestId)); // Remove approved request from UI
+            setRequests(requests.filter(request => request._id !== requestId)); // Remove approved request from UI
         } catch (error) {
             console.error('Error approving request:', error);
             toast({
@@ -65,12 +65,12 @@ function AdminDashboard() {
         } finally {
             setIsLoading(false);
         }
-    }
+    };
 
-    async function handleDeny(requestId) {
+    const handleDeny = async (requestId) => {
         try {
             setIsLoading(true);
-            await axios.put(`http://localhost:5001/requests/${requestId}/deny`, null, {
+            await axios.put(`http://localhost:5001/api/pairings/reject-request/${requestId}`, null, {
                 headers: { 'Authorization': `Bearer ${localStorage.getItem('token')}` }
             });
             toast({
@@ -80,7 +80,7 @@ function AdminDashboard() {
                 duration: 5000,
                 isClosable: true,
             });
-            setRequests(requests.filter(request => request.id !== requestId)); // Remove denied request from UI
+            setRequests(requests.filter(request => request._id !== requestId)); // Remove denied request from UI
         } catch (error) {
             console.error('Error denying request:', error);
             toast({
@@ -93,7 +93,7 @@ function AdminDashboard() {
         } finally {
             setIsLoading(false);
         }
-    }
+    };
 
     return (
         <Box p={6}>
@@ -115,21 +115,21 @@ function AdminDashboard() {
                             </Thead>
                             <Tbody>
                                 {requests.map(request => (
-                                    <Tr key={request.id}>
-                                        <Td>{request.id}</Td>
+                                    <Tr key={request._id}>
+                                        <Td>{request._id}</Td>
                                         <Td>{request.mentorName}</Td>
                                         <Td>{request.menteeName}</Td>
                                         <Td>
                                             <Stack direction="row" spacing={4}>
                                                 <Button
                                                     colorScheme="green"
-                                                    onClick={() => handleApprove(request.id)}
+                                                    onClick={() => handleApprove(request._id)}
                                                 >
                                                     Approve
                                                 </Button>
                                                 <Button
                                                     colorScheme="red"
-                                                    onClick={() => handleDeny(request.id)}
+                                                    onClick={() => handleDeny(request._id)}
                                                 >
                                                     Deny
                                                 </Button>
