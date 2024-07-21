@@ -26,6 +26,9 @@ app.use('/api/mentors', mentorRoutes);
 const authRoutes = require('./routes/Auth');
 app.use('/api/auth', authRoutes);
 
+const userRoutes = require('./routes/User');
+app.use('/api/users', userRoutes);
+
 app.get("/", (req, res) => {
     res.send("Hello, world!");
 });
