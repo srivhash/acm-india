@@ -9,6 +9,10 @@ const mentorSchema = new mongoose.Schema({
     type: String,
     required: true,
   },
+  website : {
+    type: String,
+    required: true,
+  },
   affiliation: {
     type: String,
     required: true,
@@ -16,9 +20,6 @@ const mentorSchema = new mongoose.Schema({
   meeting_link: {
     type: String,
     required: true,
-  },
-  availability: {
-    type: String, // Consider using a more structured format for availability if needed
   },
 });
 

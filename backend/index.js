@@ -19,6 +19,11 @@ app.use(cookieParser());
 
 DBConnection();
 
+// Routes
+const mentorRoutes = require('./routes/mentorRoutes');
+app.use('/api/mentors', mentorRoutes);
+
+
 app.get("/", (req, res) => {
     res.send("Hello, world!");
 });
