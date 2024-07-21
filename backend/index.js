@@ -29,6 +29,35 @@ app.use('/api/auth', authRoutes);
 const userRoutes = require('./routes/User');
 app.use('/api/users', userRoutes);
 
+const pairingRoutes = require('./routes/Pairing');
+app.use('/api/pairings', pairingRoutes);
+
+// Utility function to get all routes
+const getRoutes = (app) => {
+    const routes = [];
+    app._router.stack.forEach((middleware) => {
+        if (middleware.route) { // Route middleware
+            routes.push({
+                path: middleware.route.path,
+                method: Object.keys(middleware.route.methods).join(', ').toUpperCase(),
+            });
+        } else if (middleware.name === 'router') { // Router middleware
+            middleware.handle.stack.forEach((handler) => {
+                if (handler.route) {
+                    routes.push({
+                        path: handler.route.path,
+                        method: Object.keys(handler.route.methods).join(', ').toUpperCase(),
+                    });
+                }
+            });
+        }
+    });
+    return routes;
+};
+
+// Log all routes
+console.log(getRoutes(app));
+
 app.get("/", (req, res) => {
     res.send("Hello, world!");
 });
