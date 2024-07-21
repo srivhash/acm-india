@@ -14,6 +14,7 @@ export default function Home() {
         <Link href="/register">Register here</Link>
         <Link href="/login">Login here</Link>
         <Link href="/home">Home</Link>
+        <Link href="/form">Form</Link>
       </nav>
     </div>
     </ChakraProvider>
