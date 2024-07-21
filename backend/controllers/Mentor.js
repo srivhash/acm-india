@@ -1,4 +1,4 @@
-const Mentor = require('../models/mentor');
+const Mentor = require('../model/Mentor');
 
 // Create a new mentor
 exports.createMentor = async (req, res) => {

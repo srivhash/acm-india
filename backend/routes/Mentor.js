@@ -1,6 +1,6 @@
 const express = require('express');
 const router = express.Router();
-const mentorController = require('../controllers/mentorController');
+const mentorController = require('../controllers/Mentor');
 
 // Create a new mentor
 router.post('/', mentorController.createMentor);
