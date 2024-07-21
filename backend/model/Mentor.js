@@ -9,6 +9,10 @@ const mentorSchema = new mongoose.Schema({
     type: String,
     required: true,
   },
+  affiliation: {
+    type: String,
+    required: true,
+  },
   meeting_link: {
     type: String,
     required: true,
