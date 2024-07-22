@@ -52,7 +52,7 @@ function Signup() {
             setError('');
 
             // Make a POST request to the /register endpoint
-            const response = await axios.post('http://localhost:5001/api/auth/register', user, {
+            const response = await axios.post('https://acm-india-backend.onrender.com/api/auth/register', user, {
                 headers: {
                     'Content-Type': 'application/json'
                 }

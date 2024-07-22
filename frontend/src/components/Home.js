@@ -18,7 +18,7 @@ function Dashboard() {
         // Fetch user profile data from backend
         const fetchUserData = async () => {
             try {
-                const response = await axios.get('http://localhost:5001/api/users/profile', {
+                const response = await axios.get('https://acm-india-backend.onrender.com/api/users/profile', {
                     headers: { 'Authorization': `Bearer ${localStorage.getItem('token')}` }
                 });
                 setUser(response.data);
@@ -41,7 +41,7 @@ function Dashboard() {
             setError('');
 
             // Update profile data
-            const response = await axios.put('http://localhost:5001/api/users/profile', user, {
+            const response = await axios.put('https://acm-india-backend.onrender.com/api/users/profile', user, {
                 headers: { 'Authorization': `Bearer ${localStorage.getItem('token')}` }
             });
             console.log('Profile update response:', response.data);

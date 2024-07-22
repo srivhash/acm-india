@@ -25,7 +25,7 @@ function AdminDashboard() {
         const fetchRequests = async () => {
             try {
                 setIsLoading(true);
-                const response = await axios.get('http://localhost:5001/api/pairings/pending-request', {
+                const response = await axios.get('https://acm-india-backend.onrender.com/api/pairings/pending-request', {
                     headers: { 'Authorization': `Bearer ${localStorage.getItem('token')}` }
                 });
                 setRequests(response.data);
@@ -42,7 +42,7 @@ function AdminDashboard() {
     const handleApprove = async (requestId) => {
         try {
             setIsLoading(true);
-            await axios.put(`http://localhost:5001/api/pairings/approve-request/${requestId}`, null, {
+            await axios.put(`https://acm-india-backend.onrender.com/api/pairings/approve-request/${requestId}`, null, {
                 headers: { 'Authorization': `Bearer ${localStorage.getItem('token')}` }
             });
             toast({
@@ -70,7 +70,7 @@ function AdminDashboard() {
     const handleDeny = async (requestId) => {
         try {
             setIsLoading(true);
-            await axios.put(`http://localhost:5001/api/pairings/reject-request/${requestId}`, null, {
+            await axios.put(`https://acm-india-backend.onrender.com/api/pairings/reject-request/${requestId}`, null, {
                 headers: { 'Authorization': `Bearer ${localStorage.getItem('token')}` }
             });
             toast({

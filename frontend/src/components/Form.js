@@ -13,7 +13,7 @@ const PhDClinicForm = () => {
   useEffect(() => {
     const fetchMentors = async () => {
       try {
-        const response = await axios.get('http://localhost:5001/api/mentors'); // Adjust the API endpoint as needed
+        const response = await axios.get('https://acm-india-backend.onrender.com/api/mentors'); // Adjust the API endpoint as needed
         const data = response.data;
 
         // Extract mentor names and values
@@ -44,7 +44,7 @@ const PhDClinicForm = () => {
 
     try {
         const token = localStorage.getItem('token'); // Assuming the token is stored in localStorage
-        const response = await axios.post('http://localhost:5001/api/pairings/pairing-request', formData, {
+        const response = await axios.post('https://acm-india-backend.onrender.com/api/pairings/pairing-request', formData, {
             headers: {
                 'Content-Type': 'application/json',
                 'Authorization': `Bearer ${token}`
