@@ -2,7 +2,7 @@ const PairingRequest = require('../model/Pairing');
 const Mentor = require('../model/Mentor');
 const User = require('../model/User');
 const nodemailer = require('nodemailer');
-const ical = require('ical-generator');
+const ical = require('ical-generator').default;
 require('dotenv').config();
 
 // Configure nodemailer
@@ -14,17 +14,30 @@ const transporter = nodemailer.createTransport({
   }
 });
 
-const sendMeetingLinkEmail = (menteeEmail, mentorName, meetingLink, meetingDetails) => {
-  const { subject, description, location, start, end } = meetingDetails;
+
+const sendMeetingLinkEmail = (menteeEmail, mentorName, meetingLink) => {
+  // Generate a random date and time for the meeting (within the next 7 days)
+  const now = new Date();
+  const randomMinutes = Math.floor(Math.random() * (60 * 24 * 7));
+  const meetingStart = new Date(now.getTime() + randomMinutes * 60000);
+  const meetingEnd = new Date(meetingStart.getTime() + 60 * 60000); // 1 hour meeting
+
+  const meetingDetails = {
+    subject: 'Meeting with Mentor',
+    description: `Online meeting with ${mentorName}`,
+    location: meetingLink,
+    start: meetingStart.toISOString(),
+    end: meetingEnd.toISOString()
+  };
 
   // Create a calendar event
   const cal = ical({ domain: 'example.com', name: 'Meeting with Mentor' });
   cal.createEvent({
-    start: new Date(start),
-    end: new Date(end),
-    summary: subject,
-    description: description,
-    location: location,
+    start: new Date(meetingDetails.start),
+    end: new Date(meetingDetails.end),
+    summary: meetingDetails.subject,
+    description: meetingDetails.description,
+    location: meetingDetails.location,
     organizer: { name: 'Your Team', email: process.env.EMAIL }
   });
 
@@ -37,6 +50,10 @@ const sendMeetingLinkEmail = (menteeEmail, mentorName, meetingLink, meetingDetai
 Your pairing request has been approved. You can join the meeting with ${mentorName} using the following link:
 
 ${meetingLink}
+
+Meeting Details:
+- Date: ${meetingStart.toDateString()}
+- Time: ${meetingStart.toLocaleTimeString()} - ${meetingEnd.toLocaleTimeString()}
 
 Best regards,
 Your Team`,
