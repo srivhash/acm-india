@@ -1,6 +1,7 @@
 import React from 'react';
 import { useNavigate } from 'react-router-dom';
 import { Box, Button, Flex } from '@chakra-ui/react';
+import About from './components/About';
 
 const App = () => {
   const navigate = useNavigate();
@@ -11,8 +12,8 @@ const App = () => {
           ACM India Dashboard
         </Text>
       </Box> */}
-      <Flex as="nav" bg="black" p={4} justifyContent="center">
-        <Button
+      <Flex as="nav" bg="black" p={4} justifyContent="right">
+        {/* <Button
           colorScheme="teal"
           variant="ghost"
           onClick={() => navigate('/home')}
@@ -20,8 +21,8 @@ const App = () => {
           mx={2}
         >
           Home
-        </Button>
-        <Button
+        </Button> */}
+        {/* <Button
           colorScheme="teal"
           variant="ghost"
           onClick={() => navigate('/about')}
@@ -29,7 +30,7 @@ const App = () => {
           mx={2}
         >
           About Us
-        </Button>
+        </Button> */}
         <Button
           colorScheme="teal"
           variant="ghost"
@@ -59,7 +60,9 @@ const App = () => {
           Form
         </Button> */}
       </Flex>
+      <About />
     </Box>
+
   );
 };
 
