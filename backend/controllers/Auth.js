@@ -32,7 +32,7 @@ exports.registerUser = async (req, res) => {
         });
 
         // Generate a token for user and send it
-        const token = jwt.sign({ id: user._id, email }, process.env.SECRET_KEY, {
+        const token = jwt.sign({ id: user._id, email, role:user.role }, process.env.SECRET_KEY, {
             expiresIn: "1d",
         });
         user.token = token;
@@ -70,7 +70,7 @@ exports.loginUser = async (req, res) => {
             return res.status(401).send("Password is incorrect");
         }
 
-        const token = jwt.sign({ id: user._id }, process.env.SECRET_KEY, {
+        const token = jwt.sign({ id: user._id , role:user.role}, process.env.SECRET_KEY, {
             expiresIn: "1d",
         });
         user.token = token;
