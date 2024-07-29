@@ -2,6 +2,7 @@ const PairingRequest = require('../model/Pairing');
 const Mentor = require('../model/Mentor');
 const User = require('../model/User');
 const nodemailer = require('nodemailer');
+const ical = require('ical-generator');
 require('dotenv').config();
 
 // Configure nodemailer
@@ -13,19 +14,39 @@ const transporter = nodemailer.createTransport({
   }
 });
 
-const sendMeetingLinkEmail = (menteeEmail, mentorName, meetingLink) => {
+const sendMeetingLinkEmail = (menteeEmail, mentorName, meetingLink, meetingDetails) => {
+  const { subject, description, location, start, end } = meetingDetails;
+
+  // Create a calendar event
+  const cal = ical({ domain: 'example.com', name: 'Meeting with Mentor' });
+  cal.createEvent({
+    start: new Date(start),
+    end: new Date(end),
+    summary: subject,
+    description: description,
+    location: location,
+    organizer: { name: 'Your Team', email: process.env.EMAIL }
+  });
+
   const mailOptions = {
     from: process.env.EMAIL,
     to: menteeEmail,
     subject: 'Your Meeting Link with Mentor',
     text: `Hello,
 
-    Your pairing request has been approved. You can join the meeting with ${mentorName} using the following link:
+Your pairing request has been approved. You can join the meeting with ${mentorName} using the following link:
 
-    ${meetingLink}
+${meetingLink}
 
-    Best regards,
-    Your Team`
+Best regards,
+Your Team`,
+    attachments: [
+      {
+        filename: 'meeting.ics',
+        content: cal.toString(),
+        contentType: 'text/calendar'
+      }
+    ]
   };
 
   transporter.sendMail(mailOptions, (error, info) => {
