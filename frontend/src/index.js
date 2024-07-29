@@ -2,7 +2,6 @@ import React from 'react';
 import ReactDOM from 'react-dom/client';
 import './index.css';
 import App from './App';
-import About from './components/About';
 import Register from './components/Register';
 import Login from './components/Login';
 import Home from './components/Home';
@@ -16,7 +15,7 @@ root.render(
   <ChakraProvider>
     <Router>
       <Routes> 
-        <Route path="/about" element={<About />} />
+        {/* <Route path="/about" element={<About />} /> */}
         <Route path="/register" element={<Register />} />
         <Route path="/login" element={<Login />} />
         <Route path="/home" element={<Home />} />
