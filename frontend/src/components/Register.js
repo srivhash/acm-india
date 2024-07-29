@@ -76,7 +76,7 @@ function Signup() {
                 });
 
                 // Redirect to the home page
-                navigate('/about');
+                navigate('/login');
             } else {
                 setError(response.data);
             }
